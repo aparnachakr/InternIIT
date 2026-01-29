@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses - internIIT</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header-top {
+            background: #1a1a2e;
+            color: #fff;
+            padding: 10px 0;
+            font-size: 14px;
+        }
+
+        .header-top .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .contact-info {
+            display: flex;
+            gap: 30px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #ff6b6b;
+        }
+
+        /* Navigation */
+        nav {
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #ff6b6b;
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: #ff6b6b;
+        }
+
+        .cta-button {
+            background: #ff6b6b;
+            color: #fff;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .cta-button:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255,107,107,0.3);
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            padding: 60px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .breadcrumb::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: 50px 50px;
+        }
+
+        .breadcrumb .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            text-align: center;
+        }
+
+        .breadcrumb h1 {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .breadcrumb-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .breadcrumb-nav a {
+            color: #fff;
+            text-decoration: none;
+            opacity: 0.9;
+        }
+
+        .breadcrumb-nav a:hover {
+            opacity: 1;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 40px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        .filter-section {
+            background: #fff;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .filter-section h3 {
+            font-size: 18px;
+            color: #1a1a2e;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .filter-option {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-option:hover {
+            padding-left: 5px;
+            color: #ff6b6b;
+        }
+
+        .filter-option input[type="checkbox"],
+        .filter-option input[type="radio"] {
+            margin-right: 12px;
+            cursor: pointer;
+            accent-color: #667eea;
+        }
+
+        .filter-option label {
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .filter-count {
+            color: #999;
+            font-size: 14px;
+        }
+
+        /* Course Grid */
+        .course-content {
+            min-height: 500px;
+        }
+
+        .course-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .course-count {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .sort-dropdown {
+            padding: 10px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            background: #fff;
+            cursor: pointer;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .sort-dropdown:hover {
+            border-color: #667eea;
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .course-card {
+            background: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .course-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .course-image {
+            width: 100%;
+            height: 220px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 72px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .course-image::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+        }
+
+        .course-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255,255,255,0.95);
+            color: #667eea;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            z-index: 10;
+        }
+
+        .course-details {
+            padding: 25px;
+        }
+
+        .course-category {
+            display: inline-block;
+            background: #fff3cd;
+            color: #856404;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .course-title {
+            font-size: 20px;
+            color: #1a1a2e;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .course-description {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid #f0f0f0;
+            margin-bottom: 10px;
+        }
+
+        .course-instructor {
+            color: #999;
+            font-size: 13px;
+        }
+
+        .course-duration {
+            color: #667eea;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .course-price {
+            font-size: 22px;
+            font-weight: bold;
+            color: #ff6b6b;
+            margin-bottom: 15px;
+        }
+
+        .enroll-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: block;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .enroll-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102,126,234,0.4);
+        }
+
+        /* Footer */
+        footer {
+            background: #1a1a2e;
+            color: #fff;
+            padding: 60px 20px 20px;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 20px;
+            color: #ff6b6b;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #fff;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            color: #999;
+        }
+
+        /* No Results */
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .no-results-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: static;
+            }
+
+            .filter-section {
+                margin-bottom: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .breadcrumb h1 {
+                font-size: 32px;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .courses-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .course-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Top -->
+    <div class="header-top">
+        <div class="container">
+            <div class="contact-info">
+                <span>📍 Mumbai, Maharashtra</span>
+                <span>✉️ support@interniit.com</span>
+            </div>
+            <div class="social-links">
+                <span>Follow Us:</span>
+                <a href="#">Twitter</a>
+                <a href="#">Instagram</a>
+                <a href="#">LinkedIn</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="index.html" class="logo">internIIT</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#" class="active">Courses</a></li>
+            </ul>
+            <a href="#enroll" class="cta-button">Enroll Now</a>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <h1>Explore Courses</h1>
+            <div class="breadcrumb-nav">
+                <a href="index.html">Home</a>
+                <span>→</span>
+                <span>Courses</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Sidebar Filters -->
+        <aside class="sidebar">
+            <!-- Categories Filter -->
+            <div class="filter-section">
+                <h3>Categories</h3>
+                <div class="filter-option">
+                    <input type="checkbox" id="cat-all" checked onchange="filterCourses()">
+                    <label for="cat-all">All Courses</label>
+                    <span class="filter-count">(7)</span>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="cat-software" class="category-filter" value="software" onchange="filterCourses()">
+                    <label for="cat-software">Software Development</label>
+                    <span class="filter-count">(2)</span>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="cat-web" class="category-filter" value="web" onchange="filterCourses()">
+                    <label for="cat-web">Web Development</label>
+                    <span class="filter-count">(1)</span>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="cat-ai" class="category-filter" value="ai" onchange="filterCourses()">
+                    <label for="cat-ai">AI & Automation</label>
+                    <span class="filter-count">(2)</span>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="cat-data" class="category-filter" value="data" onchange="filterCourses()">
+                    <label for="cat-data">Data Science</label>
+                    <span class="filter-count">(2)</span>
+                </div>
+            </div>
+
+            <!-- Language Filter -->
+            <div class="filter-section">
+                <h3>Language</h3>
+                <div class="filter-option">
+                    <input type="radio" name="language" id="lang-all" checked onchange="filterCourses()">
+                    <label for="lang-all">All Languages</label>
+                </div>
+                <div class="filter-option">
+                    <input type="radio" name="language" id="lang-english" value="english" onchange="filterCourses()">
+                    <label for="lang-english">English</label>
+                </div>
+                <div class="filter-option">
+                    <input type="radio" name="language" id="lang-hindi" value="hindi" onchange="filterCourses()">
+                    <label for="lang-hindi">Hindi</label>
+                </div>
+            </div>
+
+            <!-- Price Filter -->
+            <div class="filter-section">
+                <h3>Price</h3>
+                <div class="filter-option">
+                    <input type="radio" name="price" id="price-all" checked onchange="filterCourses()">
+                    <label for="price-all">All Price</label>
+                </div>
+                <div class="filter-option">
+                    <input type="radio" name="price" id="price-free" value="free" onchange="filterCourses()">
+                    <label for="price-free">Free</label>
+                </div>
+                <div class="filter-option">
+                    <input type="radio" name="price" id="price-paid" value="paid" onchange="filterCourses()">
+                    <label for="price-paid">Paid</label>
+                </div>
+            </div>
+
+            <!-- Skill Level Filter -->
+            <div class="filter-section">
+                <h3>Skill Level</h3>
+                <div class="filter-option">
+                    <input type="radio" name="level" id="level-all" checked onchange="filterCourses()">
+                    <label for="level-all">All Levels</label>
+                </div>
+                <div class="filter-option">
+                    <input type="radio" name="level" id="level-beginner" value="beginner" onchange="filterCourses()">
+                    <label for="level-beginner">Beginner</label>
+                </div>
+                <div class="filter-option">
+                    <input type="radio" name="level" id="level-intermediate" value="intermediate" onchange="filterCourses()">
+                    <label for="level-intermediate">Intermediate</label>
+                </div>
+                <div class="filter-option">
+                    <input type="radio" name="level" id="level-expert" value="expert" onchange="filterCourses()">
+                    <label for="level-expert">Expert</label>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Course Content -->
+        <div class="course-content">
+            <div class="course-header">
+                <div class="course-count">Total <strong id="course-count">7</strong> courses found</div>
+                <select class="sort-dropdown" onchange="sortCourses(this.value)">
+                    <option value="latest">Latest to Oldest</option>
+                    <option value="oldest">Oldest to Latest</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                    <option value="name">Name: A to Z</option>
+                </select>
+            </div>
+
+            <div class="courses-grid" id="courses-grid">
+                <!-- Programming in Java -->
+                <div class="course-card" data-category="software" data-price="11999" data-level="beginner" data-language="english" data-date="2025-03-29">
+                    <div class="course-image">
+                        ☕
+                        <span class="course-badge">Software Development</span>
+                    </div>
+                    <div class="course-details">
+                        <span class="course-category">Programming</span>
+                        <h3 class="course-title">Programming in Java</h3>
+                        <p class="course-description">Master Java programming with OOP principles, data structures, algorithms, and real-world projects.</p>
+                        <div class="course-meta">
+                            <span class="course-instructor">By internIIT Team</span>
+                            <span class="course-duration">60 Days</span>
+                        </div>
+                        <div class="course-price">₹11,999</div>
+                        <a href="course-java.html" class="enroll-btn">Enroll Now</a>
+                    </div>
+                </div>
+
+                <!-- Programming in Python -->
+                <div class="course-card" data-category="software" data-price="11999" data-level="beginner" data-language="english" data-date="2025-03-14">
+                    <div class="course-image">
+                        🐍
+                        <span class="course-badge">Software Development</span>
+                    </div>
+                    <div class="course-details">
+                        <span class="course-category">Programming</span>
+                        <h3 class="course-title">Programming in Python</h3>
+                        <p class="course-description">Learn Python from basics to advanced topics including data analysis, automation, and machine learning fundamentals.</p>
+                        <div class="course-meta">
+                            <span class="course-instructor">By Abhishek Sharma</span>
+                            <span class="course-duration">60 Days</span>
+                        </div>
+                        <div class="course-price">₹11,999</div>
+                        <a href="course-python.html" class="enroll-btn">Enroll Now</a>
+                    </div>
+                </div>
+
+                <!-- Web Development Front-End -->
+                <div class="course-card" data-category="web" data-price="11999" data-level="beginner" data-language="english" data-date="2025-06-05">
+                    <div class="course-image">
+                        🌐
+                        <span class="course-badge">Web Development</span>
+                    </div>
+                    <div class="course-details">
+                        <span class="course-category">Web Technologies</span>
+                        <h3 class="course-title">Web Development Front-End</h3>
+                        <p class="course-description">Build responsive websites using HTML, CSS, JavaScript, React, and modern front-end frameworks.</p>
+                        <div class="course-meta">
+                            <span class="course-instructor">By Pratik Sen</span>
+                            <span class="course-duration">60 Days</span>
+                        </div>
+                        <div class="course-price">₹11,999</div>
+                        <a href="course-web-development.html" class="enroll-btn">Enroll Now</a>
+                    </div>
+                </div>
+
+                <!-- Artificial Intelligence -->
+                <div class="course-card" data-category="ai" data-price="11999" data-level="intermediate" data-language="english" data-date="2025-01-10">
+                    <div class="course-image">
+                        🤖
+                        <span class="course-badge">AI & Automation</span>
+                    </div>
+                    <div class="course-details">
+                        <span class="course-category">Artificial Intelligence</span>
+                        <h3 class="course-title">Artificial Intelligence</h3>
+                        <p class="course-description">Design intelligent systems with AI, deep learning, neural networks, NLP, and computer vision applications.</p>
+                        <div class="course-meta">
+                            <span class="course-instructor">By Shad Ali</span>
+                            <span class="course-duration">60 Days</span>
+                        </div>
+                        <div class="course-price">₹11,999</div>
+                        <a href="course-ai.html" class="enroll-btn">Enroll Now</a>
+                    </div>
+                </div>
+
+                <!-- Test Automation Tools -->
+                <div class="course-card" data-category="ai" data-price="11999" data-level="intermediate" data-language="english" data-date="2025-02-15">
+                    <div class="course-image">
+                        ⚙️
+                        <span class="course-badge">AI & Automation</span>
+                    </div>
+                    <div class="course-details">
+                        <span class="course-category">Testing & Automation</span>
+                        <h3 class="course-title">Test Automation Tools</h3>
+                        <p class="course-description">Master automated testing with Selenium, Appium, JUnit, and CI/CD integration for quality assurance.</p>
+                        <div class="course-meta">
+                            <span class="course-instructor">By QA Experts</span>
+                            <span class="course-duration">60 Days</span>
+                        </div>
+                        <div class="course-price">₹11,999</div>
+                        <a href="course-test-automation.html" class="enroll-btn">Enroll Now</a>
+                    </div>
+                </div>
+
+                <!-- Data Science -->
+                <div class="course-card" data-category="data" data-price="11999" data-level="intermediate" data-language="english" data-date="2025-01-11">
+                    <div class="course-image">
+                        📊
+                        <span class="course-badge">Data Science</span>
+                    </div>
+                    <div class="course-details">
+                        <span class="course-category">Data Analytics</span>
+                        <h3 class="course-title">Data Science</h3>
+                        <p class="course-description">Analyze data, build predictive models using Python, machine learning, statistics, and deep learning techniques.</p>
+                        <div class="course-meta">
+                            <span class="course-instructor">By Himanshu Mehta</span>
+                            <span class="course-duration">60 Days</span>
+                        </div>
+                        <div class="course-price">₹11,999</div>
+                        <a href="course-data-science.html" class="enroll-btn">Enroll Now</a>
+                    </div>
+                </div>
+
+                <!-- Data Analytics -->
+                <div class="course-card" data-category="data" data-price="11999" data-level="beginner" data-language="english" data-date="2025-01-08">
+                    <div class="course-image">
+                        📈
+                        <span class="course-badge">Data Science</span>
+                    </div>
+                    <div class="course-details">
+                        <span class="course-category">Data Analytics</span>
+                        <h3 class="course-title">Data Analytics</h3>
+                        <p class="course-description">Master data analysis with Python, Excel, SQL, Power BI, and create impactful dashboards and reports.</p>
+                        <div class="course-meta">
+                            <span class="course-instructor">By Himanshu Mehta</span>
+                            <span class="course-duration">60 Days</span>
+                        </div>
+                        <div class="course-price">₹11,999</div>
+                        <a href="course-data-analytics.html" class="enroll-btn">Enroll Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- No Results Message -->
+            <div id="no-results" class="no-results" style="display: none;">
+                <div class="no-results-icon">🔍</div>
+                <h3>No courses found</h3>
+                <p>Try adjusting your filters to find what you're looking for</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>internIIT</h3>
+                <p>Empowering students through quality education and industry-focused training programs.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="#">Courses</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Our Services</h3>
+                <ul>
+                    <li><a href="#">Live Training</a></li>
+                    <li><a href="#">Career Coaching</a></li>
+                    <li><a href="#">Placement Support</a></li>
+                    <li><a href="#">Certification</a></li>
+                    <li><a href="#">Workshops</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                    <li><a href="#">Refund Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 internIIT. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        let allCourses = [];
+
+        function initCourses() {
+            allCourses = Array.from(document.querySelectorAll('.course-card'));
+        }
+
+        function filterCourses() {
+            const categoryCheckboxes = document.querySelectorAll('.category-filter:checked');
+            const allCategoriesChecked = document.getElementById('cat-all').checked;
+            
+            let selectedCategories = [];
+            if (!allCategoriesChecked && categoryCheckboxes.length > 0) {
+                selectedCategories = Array.from(categoryCheckboxes).map(cb => cb.value);
+            }
+
+            const selectedLanguage = document.querySelector('input[name="language"]:checked').value;
+            const selectedPrice = document.querySelector('input[name="price"]:checked').value;
+            const selectedLevel = document.querySelector('input[name="level"]:checked').value;
+
+            let visibleCount = 0;
+
+            allCourses.forEach(course => {
+                let show = true;
+
+                // Category filter
+                if (selectedCategories.length > 0) {
+                    const courseCategory = course.getAttribute('data-category');
+                    if (!selectedCategories.includes(courseCategory)) {
+                        show = false;
+                    }
+                }
+
+                // Language filter
+                if (selectedLanguage && selectedLanguage !== 'all') {
+                    const courseLanguage = course.getAttribute('data-language');
+                    if (courseLanguage !== selectedLanguage) {
+                        show = false;
+                    }
+                }
+
+                // Price filter
+                if (selectedPrice && selectedPrice !== 'all') {
+                    const coursePrice = parseInt(course.getAttribute('data-price'));
+                    if (selectedPrice === 'free' && coursePrice > 0) {
+                        show = false;
+                    } else if (selectedPrice === 'paid' && coursePrice === 0) {
+                        show = false;
+                    }
+                }
+
+                // Level filter
+                if (selectedLevel && selectedLevel !== 'all') {
+                    const courseLevel = course.getAttribute('data-level');
+                    if (courseLevel !== selectedLevel) {
+                        show = false;
+                    }
+                }
+
+                if (show) {
+                    course.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    course.style.display = 'none';
+                }
+            });
+
+            // Update count and show/hide no results
+            document.getElementById('course-count').textContent = visibleCount;
+            document.getElementById('no-results').style.display = visibleCount === 0 ? 'block' : 'none';
+            document.getElementById('courses-grid').style.display = visibleCount === 0 ? 'none' : 'grid';
+
+            // Uncheck "All Courses" if individual categories are selected
+            if (categoryCheckboxes.length > 0) {
+                document.getElementById('cat-all').checked = false;
+            } else if (!allCategoriesChecked) {
+                document.getElementById('cat-all').checked = true;
+            }
+        }
+
+        function sortCourses(sortBy) {
+            const grid = document.getElementById('courses-grid');
+            const courses = Array.from(allCourses);
+
+            courses.sort((a, b) => {
+                switch(sortBy) {
+                    case 'price-low':
+                        return parseInt(a.getAttribute('data-price')) - parseInt(b.getAttribute('data-price'));
+                    case 'price-high':
+                        return parseInt(b.getAttribute('data-price')) - parseInt(a.getAttribute('data-price'));
+                    case 'name':
+                        const nameA = a.querySelector('.course-title').textContent;
+                        const nameB = b.querySelector('.course-title').textContent;
+                        return nameA.localeCompare(nameB);
+                    case 'oldest':
+                        return new Date(a.getAttribute('data-date')) - new Date(b.getAttribute('data-date'));
+                    case 'latest':
+                    default:
+                        return new Date(b.getAttribute('data-date')) - new Date(a.getAttribute('data-date'));
+                }
+            });
+
+            // Clear and re-append in sorted order
+            grid.innerHTML = '';
+            courses.forEach(course => {
+                grid.appendChild(course);
+            });
+        }
+
+        // Handle "All Courses" checkbox
+        document.getElementById('cat-all').addEventListener('change', function() {
+            if (this.checked) {
+                document.querySelectorAll('.category-filter').forEach(cb => cb.checked = false);
+                filterCourses();
+            }
+        });
+
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            initCourses();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Analytics - internIIT</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Header */
+        .header-top {
+            background: #1a1a2e;
+            color: #fff;
+            padding: 10px 0;
+            font-size: 14px;
+        }
+
+        .header-top .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav {
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #ff6b6b;
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: #ff6b6b;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            padding: 40px 20px;
+        }
+
+        .breadcrumb .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .breadcrumb h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .breadcrumb-nav {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .breadcrumb-nav a {
+            color: #fff;
+            text-decoration: none;
+            opacity: 0.9;
+        }
+
+        /* Main Content */
+        .course-layout {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 40px;
+        }
+
+        /* Course Image */
+        .course-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 60px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 120px;
+        }
+
+        /* Tabs */
+        .course-tabs {
+            display: flex;
+            gap: 10px;
+            border-bottom: 2px solid #e0e0e0;
+            margin-bottom: 30px;
+        }
+
+        .tab {
+            padding: 15px 25px;
+            background: none;
+            border: none;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            color: #666;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+
+        .tab:hover {
+            color: #667eea;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Course Info */
+        .course-info h2 {
+            font-size: 28px;
+            color: #1a1a2e;
+            margin-bottom: 20px;
+        }
+
+        .course-info h3 {
+            font-size: 22px;
+            color: #1a1a2e;
+            margin: 25px 0 15px;
+        }
+
+        .course-info p, .course-info li {
+            color: #666;
+            margin-bottom: 12px;
+            line-height: 1.8;
+        }
+
+        .course-info ul {
+            margin-left: 20px;
+        }
+
+        /* Curriculum */
+        .curriculum-section {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+        .curriculum-header {
+            padding: 20px;
+            background: #f8f9fa;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s;
+        }
+
+        .curriculum-header:hover {
+            background: #e9ecef;
+        }
+
+        .curriculum-header h3 {
+            font-size: 18px;
+            color: #1a1a2e;
+            margin: 0;
+        }
+
+        .curriculum-toggle {
+            font-size: 24px;
+            color: #667eea;
+        }
+
+        .curriculum-lessons {
+            padding: 0;
+            display: none;
+        }
+
+        .curriculum-lessons.active {
+            display: block;
+        }
+
+        .lesson-item {
+            padding: 15px 20px;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .lesson-item:hover {
+            background: #f8f9fa;
+        }
+
+        .lesson-title {
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .lesson-duration {
+            color: #999;
+            font-size: 14px;
+        }
+
+        .lock-icon {
+            color: #999;
+        }
+
+        /* Sidebar */
+        .course-sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        .price-card {
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            padding: 30px;
+            margin-bottom: 25px;
+        }
+
+        .price {
+            font-size: 36px;
+            font-weight: bold;
+            color: #ff6b6b;
+            margin-bottom: 20px;
+        }
+
+        .enroll-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 20px;
+        }
+
+        .enroll-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102,126,234,0.4);
+        }
+
+        .course-includes h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .include-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .include-item:last-child {
+            border-bottom: none;
+        }
+
+        .include-icon {
+            color: #667eea;
+            font-size: 20px;
+        }
+
+        .include-label {
+            color: #999;
+            font-size: 14px;
+            flex: 1;
+        }
+
+        .include-value {
+            color: #333;
+            font-weight: 500;
+        }
+
+        /* Instructor */
+        .instructor-card {
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            padding: 30px;
+            text-align: center;
+        }
+
+        .instructor-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: #fff;
+        }
+
+        .instructor-name {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1a1a2e;
+            margin-bottom: 10px;
+        }
+
+        .instructor-title {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Footer */
+        footer {
+            background: #1a1a2e;
+            color: #fff;
+            padding: 60px 20px 20px;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 20px;
+            color: #ff6b6b;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #fff;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            color: #999;
+        }
+
+        @media (max-width: 968px) {
+            .course-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .course-sidebar {
+                position: static;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header-top">
+        <div class="container">
+            <div>📍 Mumbai, Maharashtra | ✉️ support@interniit.com</div>
+            <div>Follow Us: Twitter | Instagram | LinkedIn</div>
+        </div>
+    </div>
+
+    <nav>
+        <div class="container">
+            <a href="index.html" class="logo">internIIT</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="domain.html">Courses</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <h1>Data Analytics</h1>
+            <div class="breadcrumb-nav">
+                <a href="index.html">Home</a>
+                <span>→</span>
+                <a href="domain.html">Courses</a>
+                <span>→</span>
+                <span>Data Analytics</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="course-layout">
+        <div class="course-main">
+            <!-- Course Header Image -->
+            <div class="course-header">📈</div>
+
+            <!-- Course Meta -->
+            <div style="display: flex; gap: 30px; margin-bottom: 30px; color: #666;">
+                <span>👤 By Himanshu Mehta</span>
+                <span>📅 08/Jan/2025</span>
+                <span>👥 42 Students</span>
+            </div>
+
+            <!-- Tabs -->
+            <div class="course-tabs">
+                <button class="tab active" onclick="switchTab('overview')">Overview</button>
+                <button class="tab" onclick="switchTab('curriculum')">Curriculum</button>
+                <button class="tab" onclick="switchTab('instructor')">Instructor</button>
+            </div>
+
+            <!-- Tab Content -->
+            <div id="overview" class="tab-content active course-info">
+                <h2>Course Description</h2>
+                <p>Master the art of data analysis and visualization. This course teaches you how to collect, process, and analyze data to help organizations make better business decisions.</p>
+
+                <h3>Course Overview</h3>
+                <p>You will learn to use tools like Excel, SQL, Power BI, and Python to clean, analyze, and visualize data. The course focuses on practical skills that are in high demand in the industry.</p>
+
+                <h3>Key Highlights</h3>
+                <ul>
+                    <li>Learn data analysis using Excel, SQL, and Python</li>
+                    <li>Create interactive dashboards with Power BI and Tableau</li>
+                    <li>Master data cleaning and preparation techniques</li>
+                    <li>Understand key performance indicators (KPIs) and business metrics</li>
+                    <li>Work on real-world projects and case studies</li>
+                    <li>Learn to communicate insights effectively</li>
+                    <li>Get hands-on experience with industry-standard tools</li>
+                    <li>Receive career support and certification</li>
+                </ul>
+
+                <h3>Who Should Enroll</h3>
+                <p>This course is ideal for beginners, business professionals, and anyone looking to start a career in data analytics.</p>
+
+                <h3>What You'll Learn</h3>
+                <ul>
+                    <li>Data Analysis Fundamentals</li>
+                    <li>Advanced Excel for Data Analysis</li>
+                    <li>SQL for Data Retrieval & Manipulation</li>
+                    <li>Data Visualization with Power BI & Tableau</li>
+                    <li>Python for Data Analytics</li>
+                    <li>Statistical Analysis</li>
+                    <li>Business Intelligence Concepts</li>
+                    <li>Reporting & Dashboarding</li>
+                </ul>
+            </div>
+
+            <div id="curriculum" class="tab-content">
+                <h2 style="margin-bottom: 20px;">Course Curriculum</h2>
+
+                <div class="curriculum-section">
+                    <div class="curriculum-header" onclick="toggleSection(this)">
+                        <h3>1. Excel for Data Analysis</h3>
+                        <span class="curriculum-toggle">+</span>
+                    </div>
+                    <div class="curriculum-lessons">
+                        <div class="lesson-item">
+                            <span class="lesson-title">
+                                <span class="lock-icon">🔒</span>
+                                Advanced Formulas & Functions
+                            </span>
+                            <span class="lesson-duration">60 days</span>
+                        </div>
+                        <div class="lesson-item">
+                            <span class="lesson-title">
+                                <span class="lock-icon">🔒</span>
+                                Pivot Tables & Charts
+                            </span>
+                            <span class="lesson-duration">60 days</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="curriculum-section">
+                    <div class="curriculum-header" onclick="toggleSection(this)">
+                        <h3>2. SQL & Databases</h3>
+                        <span class="curriculum-toggle">+</span>
+                    </div>
+                    <div class="curriculum-lessons">
+                        <div class="lesson-item">
+                            <span class="lesson-title">
+                                <span class="lock-icon">🔒</span>
+                                Database Concepts & SQL Basics
+                            </span>
+                            <span class="lesson-duration">60 days</span>
+                        </div>
+                        <div class="lesson-item">
+                            <span class="lesson-title">
+                                <span class="lock-icon">🔒</span>
+                                Joins, Subqueries & Aggregations
+                            </span>
+                            <span class="lesson-duration">60 days</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="curriculum-section">
+                    <div class="curriculum-header" onclick="toggleSection(this)">
+                        <h3>3. Data Visualization</h3>
+                        <span class="curriculum-toggle">+</span>
+                    </div>
+                    <div class="curriculum-lessons">
+                        <div class="lesson-item">
+                            <span class="lesson-title">
+                                <span class="lock-icon">🔒</span>
+                                Introduction to Power BI
+                            </span>
+                            <span class="lesson-duration">60 days</span>
+                        </div>
+                        <div class="lesson-item">
+                            <span class="lesson-title">
+                                <span class="lock-icon">🔒</span>
+                                Creating Interactive Dashboards
+                            </span>
+                            <span class="lesson-duration">60 days</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="instructor" class="tab-content">
+                <h2 style="margin-bottom: 20px;">Course Instructor</h2>
+                <div class="instructor-card">
+                    <div class="instructor-avatar">HM</div>
+                    <div class="instructor-name">Himanshu Mehta</div>
+                    <div class="instructor-title">Senior Data Analyst</div>
+                    <p style="margin-top: 20px; color: #666;">Himanshu is an experienced data analyst who loves turning raw data into meaningful stories. He has worked with top companies to drive business growth through data.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="course-sidebar">
+            <div class="price-card">
+                <div class="price">₹11,999.00</div>
+                <button class="enroll-btn">Add To Cart</button>
+
+                <div class="course-includes">
+                    <h3>Course Includes:</h3>
+                    <div class="include-item">
+                        <span class="include-icon">📊</span>
+                        <span class="include-label">Level</span>
+                        <span class="include-value">Beginner</span>
+                    </div>
+                    <div class="include-item">
+                        <span class="include-icon">⏱️</span>
+                        <span class="include-label">Duration</span>
+                        <span class="include-value">60 days</span>
+                    </div>
+                    <div class="include-item">
+                        <span class="include-icon">📚</span>
+                        <span class="include-label">Lessons</span>
+                        <span class="include-value">8</span>
+                    </div>
+                    <div class="include-item">
+                        <span class="include-icon">📝</span>
+                        <span class="include-label">Quizzes</span>
+                        <span class="include-value">2</span>
+                    </div>
+                    <div class="include-item">
+                        <span class="include-icon">🎓</span>
+                        <span class="include-label">Certification</span>
+                        <span class="include-value">Yes</span>
+                    </div>
+                    <div class="include-item">
+                        <span class="include-icon">🌐</span>
+                        <span class="include-label">Language</span>
+                        <span class="include-value">English</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>internIIT</h3>
+                <p>Empowering students through quality education and industry-focused training programs.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="domain.html">Courses</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Our Services</h3>
+                <ul>
+                    <li><a href="#">Live Training</a></li>
+                    <li><a href="#">Career Coaching</a></li>
+                    <li><a href="#">Certification</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 internIIT. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function switchTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Remove active class from all tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+
+        function toggleSection(header) {
+            const lessons = header.nextElementSibling;
+            const toggle = header.querySelector('.curriculum-toggle');
+
+            if (lessons.classList.contains('active')) {
+                lessons.classList.remove('active');
+                toggle.textContent = '+';
+            } else {
+                lessons.classList.add('active');
+                toggle.textContent = '−';
+            }
+        }
+    </script>
+</body>
+</html>
