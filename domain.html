@@ -519,7 +519,7 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="#" class="active">Courses</a></li>
             </ul>
-            <a href="#enroll" class="cta-button">Enroll Now</a>
+            <a href="enroll.html" class="cta-button">Enroll Now</a>
         </div>
     </nav>
 
@@ -545,27 +545,22 @@
                 <div class="filter-option">
                     <input type="checkbox" id="cat-all" checked onchange="filterCourses()">
                     <label for="cat-all">All Courses</label>
-                    <span class="filter-count">(7)</span>
                 </div>
                 <div class="filter-option">
                     <input type="checkbox" id="cat-software" class="category-filter" value="software" onchange="filterCourses()">
                     <label for="cat-software">Software Development</label>
-                    <span class="filter-count">(2)</span>
                 </div>
                 <div class="filter-option">
                     <input type="checkbox" id="cat-web" class="category-filter" value="web" onchange="filterCourses()">
                     <label for="cat-web">Web Development</label>
-                    <span class="filter-count">(1)</span>
                 </div>
                 <div class="filter-option">
                     <input type="checkbox" id="cat-ai" class="category-filter" value="ai" onchange="filterCourses()">
                     <label for="cat-ai">AI & Automation</label>
-                    <span class="filter-count">(2)</span>
                 </div>
                 <div class="filter-option">
                     <input type="checkbox" id="cat-data" class="category-filter" value="data" onchange="filterCourses()">
                     <label for="cat-data">Data Science</label>
-                    <span class="filter-count">(2)</span>
                 </div>
             </div>
 
@@ -628,7 +623,7 @@
         <!-- Course Content -->
         <div class="course-content">
             <div class="course-header">
-                <div class="course-count">Total <strong id="course-count">7</strong> courses found</div>
+                <div class="course-count">Courses found</div>
                 <select class="sort-dropdown" onchange="sortCourses(this.value)">
                     <option value="latest">Latest to Oldest</option>
                     <option value="oldest">Oldest to Latest</option>
@@ -651,9 +646,7 @@
                         <p class="course-description">Master Java programming with OOP principles, data structures, algorithms, and real-world projects.</p>
                         <div class="course-meta">
                             <span class="course-instructor">By internIIT Team</span>
-                            <span class="course-duration">60 Days</span>
                         </div>
-                        <div class="course-price">₹11,999</div>
                         <a href="course-java.html" class="enroll-btn">Enroll Now</a>
                     </div>
                 </div>
@@ -670,9 +663,7 @@
                         <p class="course-description">Learn Python from basics to advanced topics including data analysis, automation, and machine learning fundamentals.</p>
                         <div class="course-meta">
                             <span class="course-instructor">By Abhishek Sharma</span>
-                            <span class="course-duration">60 Days</span>
                         </div>
-                        <div class="course-price">₹11,999</div>
                         <a href="course-python.html" class="enroll-btn">Enroll Now</a>
                     </div>
                 </div>
@@ -689,9 +680,7 @@
                         <p class="course-description">Build responsive websites using HTML, CSS, JavaScript, React, and modern front-end frameworks.</p>
                         <div class="course-meta">
                             <span class="course-instructor">By Pratik Sen</span>
-                            <span class="course-duration">60 Days</span>
                         </div>
-                        <div class="course-price">₹11,999</div>
                         <a href="course-web-development.html" class="enroll-btn">Enroll Now</a>
                     </div>
                 </div>
@@ -708,9 +697,7 @@
                         <p class="course-description">Design intelligent systems with AI, deep learning, neural networks, NLP, and computer vision applications.</p>
                         <div class="course-meta">
                             <span class="course-instructor">By Shad Ali</span>
-                            <span class="course-duration">60 Days</span>
                         </div>
-                        <div class="course-price">₹11,999</div>
                         <a href="course-ai.html" class="enroll-btn">Enroll Now</a>
                     </div>
                 </div>
@@ -727,9 +714,7 @@
                         <p class="course-description">Master automated testing with Selenium, Appium, JUnit, and CI/CD integration for quality assurance.</p>
                         <div class="course-meta">
                             <span class="course-instructor">By QA Experts</span>
-                            <span class="course-duration">60 Days</span>
                         </div>
-                        <div class="course-price">₹11,999</div>
                         <a href="course-test-automation.html" class="enroll-btn">Enroll Now</a>
                     </div>
                 </div>
@@ -746,9 +731,7 @@
                         <p class="course-description">Analyze data, build predictive models using Python, machine learning, statistics, and deep learning techniques.</p>
                         <div class="course-meta">
                             <span class="course-instructor">By Himanshu Mehta</span>
-                            <span class="course-duration">60 Days</span>
                         </div>
-                        <div class="course-price">₹11,999</div>
                         <a href="course-data-science.html" class="enroll-btn">Enroll Now</a>
                     </div>
                 </div>
@@ -765,9 +748,7 @@
                         <p class="course-description">Master data analysis with Python, Excel, SQL, Power BI, and create impactful dashboards and reports.</p>
                         <div class="course-meta">
                             <span class="course-instructor">By Himanshu Mehta</span>
-                            <span class="course-duration">60 Days</span>
                         </div>
-                        <div class="course-price">₹11,999</div>
                         <a href="course-data-analytics.html" class="enroll-btn">Enroll Now</a>
                     </div>
                 </div>
@@ -818,7 +799,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 internIIT. All rights reserved.</p>
+            <p>&copy; internIIT. All rights reserved.</p>
         </div>
     </footer>
 
@@ -890,7 +871,7 @@
             });
 
             // Update count and show/hide no results
-            document.getElementById('course-count').textContent = visibleCount;
+            // document.getElementById('course-count').textContent = visibleCount; // Removed count
             document.getElementById('no-results').style.display = visibleCount === 0 ? 'block' : 'none';
             document.getElementById('courses-grid').style.display = visibleCount === 0 ? 'none' : 'grid';
 
