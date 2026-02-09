@@ -5,94 +5,576 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Enroll - internIIT</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #333;
-            background-color: #f4f4f4;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
             display: flex;
-            justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
+            justify-content: center;
+            padding: 20px;
         }
+
+        /* Header */
+        .header-top {
+            background: #1a1a2e;
+            color: #fff;
+            padding: 10px 0;
+            font-size: 14px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .header-top .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .contact-info {
+            display: flex;
+            gap: 30px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #ff6b6b;
+        }
+
+        /* Navigation */
+        nav {
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 50px;
+            left: 0;
+            right: 0;
+            z-index: 999;
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #ff6b6b;
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: #ff6b6b;
+        }
+
+        .cta-button {
+            background: #ff6b6b;
+            color: #fff;
+            padding: 10px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .cta-button:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255,107,107,0.3);
+        }
+
+        /* Main Content */
+        .enroll-wrapper {
+            margin-top: 130px;
+            width: 100%;
+            max-width: 800px;
+        }
+
         .enroll-container {
             background: #fff;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             width: 100%;
-            max-width: 500px;
         }
+
+        .breadcrumb {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .breadcrumb a {
+            color: #fff;
+            text-decoration: none;
+            opacity: 0.8;
+        }
+
+        .breadcrumb a:hover {
+            opacity: 1;
+        }
+
         h2 {
             text-align: center;
             color: #1a1a2e;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
+            font-size: 36px;
         }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 16px;
+        }
+
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
         label {
             display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #1a1a2e;
+            font-size: 14px;
         }
-        input, select {
+
+        .required {
+            color: #ff6b6b;
+        }
+
+        input, select, textarea {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
             font-size: 16px;
+            transition: all 0.3s;
+            font-family: inherit;
         }
-        button {
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        input.error, select.error, textarea.error {
+            border-color: #ff6b6b;
+        }
+
+        .error-message {
+            color: #ff6b6b;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            margin: 0;
+        }
+
+        .checkbox-group label {
+            margin: 0;
+            font-weight: normal;
+        }
+
+        .submit-btn {
             width: 100%;
-            padding: 12px;
-            background: #ff6b6b;
+            padding: 18px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: #fff;
             border: none;
-            border-radius: 5px;
-            font-size: 16px;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: all 0.3s;
+            margin-top: 20px;
         }
-        button:hover {
-            background: #ff5252;
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
         }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            display: none;
+        }
+
+        .error-message-global {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            display: none;
+        }
+
         .back-link {
             display: block;
             text-align: center;
-            margin-top: 15px;
+            margin-top: 30px;
             text-decoration: none;
-            color: #666;
+            color: #fff;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        .back-link:hover {
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .enroll-wrapper {
+                margin-top: 120px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .enroll-container {
+                padding: 30px 20px;
+            }
+
+            h2 {
+                font-size: 28px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="enroll-container">
-        <h2>Enroll Now</h2>
-        <form>
-            <div class="form-group">
-                <label for="name">Full Name</label>
-                <input type="text" id="name" name="name" required>
+    <!-- Header Top -->
+    <div class="header-top">
+        <div class="container">
+            <div class="contact-info">
+                <span>📍 Mumbai, Maharashtra</span>
+                <span>✉️ support@interniit.com</span>
             </div>
-            <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" name="email" required>
+            <div class="social-links">
+                <span>Follow Us:</span>
+                <a href="#">Twitter</a>
+                <a href="#">Instagram</a>
+                <a href="#">LinkedIn</a>
             </div>
-            <div class="form-group">
-                <label for="course">Select Course</label>
-                <select id="course" name="course">
-                    <option value="java">Programming in Java</option>
-                    <option value="python">Programming in Python</option>
-                    <option value="web">Web Development</option>
-                    <option value="ai">Artificial Intelligence</option>
-                    <option value="datascience">Data Science</option>
-                    <option value="analytics">Data Analytics</option>
-                </select>
-            </div>
-            <button type="submit">Submit Application</button>
-        </form>
-        <a href="index.html" class="back-link">Back to Home</a>
+        </div>
     </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="index.html" class="logo">internIIT</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="domain.html">Courses</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+            <a href="enroll.html" class="cta-button">Enroll Now</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="enroll-wrapper">
+        <div class="breadcrumb">
+            <a href="index.html">Home</a> → <a href="enroll.html">Enroll Now</a>
+        </div>
+
+        <div class="enroll-container">
+            <h2>Start Your Journey</h2>
+            <p class="subtitle">Fill in your details and we'll get in touch with you shortly</p>
+
+            <div id="successMessage" class="success-message">
+                🎉 Thank you for your enrollment! We've received your application and will contact you soon.
+            </div>
+
+            <div id="errorMessage" class="error-message-global">
+                ❌ There was an error submitting your application. Please try again.
+            </div>
+
+            <form id="enrollmentForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">First Name <span class="required">*</span></label>
+                        <input type="text" id="firstName" name="firstName" required>
+                        <div class="error-message">Please enter your first name</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name <span class="required">*</span></label>
+                        <input type="text" id="lastName" name="lastName" required>
+                        <div class="error-message">Please enter your last name</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address <span class="required">*</span></label>
+                    <input type="email" id="email" name="email" required>
+                    <div class="error-message">Please enter a valid email address</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" placeholder="+91 98765 43210">
+                    <div class="error-message">Please enter a valid phone number</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="course">Select Course <span class="required">*</span></label>
+                    <select id="course" name="course" required>
+                        <option value="">-- Choose a Course --</option>
+                        <option value="java">Programming in Java</option>
+                        <option value="python">Programming in Python</option>
+                        <option value="web">Web Development Front-End</option>
+                        <option value="ai">Artificial Intelligence</option>
+                        <option value="automation">Test Automation Tools</option>
+                        <option value="datascience">Data Science</option>
+                        <option value="analytics">Data Analytics</option>
+                    </select>
+                    <div class="error-message">Please select a course</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="experience">Experience Level</label>
+                    <select id="experience" name="experience">
+                        <option value="">-- Select Experience --</option>
+                        <option value="beginner">Beginner (0-1 years)</option>
+                        <option value="intermediate">Intermediate (1-3 years)</option>
+                        <option value="advanced">Advanced (3+ years)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Additional Message</label>
+                    <textarea id="message" name="message" placeholder="Tell us about your learning goals or any questions you have..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="terms" name="terms" required>
+                        <label for="terms">I agree to the <a href="#" style="color: #667eea;">Terms and Conditions</a> <span class="required">*</span></label>
+                    </div>
+                    <div class="error-message">You must agree to the terms and conditions</div>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    Submit Application
+                </button>
+            </form>
+
+            <a href="index.html" class="back-link">← Back to Home</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('enrollmentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Clear previous messages
+            document.getElementById('successMessage').style.display = 'none';
+            document.getElementById('errorMessage').style.display = 'none';
+            
+            // Clear previous errors
+            document.querySelectorAll('.error-message').forEach(msg => msg.style.display = 'none');
+            document.querySelectorAll('input, select, textarea').forEach(field => field.classList.remove('error'));
+            
+            // Get form values
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const course = document.getElementById('course').value;
+            const experience = document.getElementById('experience').value;
+            const message = document.getElementById('message').value.trim();
+            const terms = document.getElementById('terms').checked;
+            
+            // Validation
+            let isValid = true;
+            
+            if (!firstName) {
+                showError('firstName', 'Please enter your first name');
+                isValid = false;
+            }
+            
+            if (!lastName) {
+                showError('lastName', 'Please enter your last name');
+                isValid = false;
+            }
+            
+            if (!email) {
+                showError('email', 'Please enter your email address');
+                isValid = false;
+            } else if (!isValidEmail(email)) {
+                showError('email', 'Please enter a valid email address');
+                isValid = false;
+            }
+            
+            if (!course) {
+                showError('course', 'Please select a course');
+                isValid = false;
+            }
+            
+            if (!terms) {
+                showError('terms', 'You must agree to the terms and conditions');
+                isValid = false;
+            }
+            
+            if (!isValid) {
+                return;
+            }
+            
+            // Disable submit button
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+            
+            // Prepare email data
+            const emailData = {
+                to: 'interniitofficial@gmail.com',
+                subject: `New Enrollment Application - ${course.toUpperCase()}`,
+                body: `
+New Enrollment Application Received
+
+Personal Information:
+- Full Name: ${firstName} ${lastName}
+- Email: ${email}
+- Phone: ${phone || 'Not provided'}
+
+Course Information:
+- Selected Course: ${course}
+- Experience Level: ${experience || 'Not specified'}
+
+Additional Message:
+${message || 'No additional message provided'}
+
+---
+This enrollment was submitted via the InternIIT website.
+Date: ${new Date().toLocaleString()}
+                `.trim()
+            };
+            
+            // Send email using mailto (fallback for client-side)
+            const mailtoLink = `mailto:${emailData.to}?subject=${encodeURIComponent(emailData.subject)}&body=${encodeURIComponent(emailData.body)}`;
+            
+            // Try to open email client
+            window.location.href = mailtoLink;
+            
+            // Show success message after a short delay
+            setTimeout(() => {
+                document.getElementById('successMessage').style.display = 'block';
+                document.getElementById('enrollmentForm').reset();
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit Application';
+                
+                // Scroll to success message
+                document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
+            }, 1000);
+        });
+        
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+        
+        function showError(fieldId, message) {
+            const field = document.getElementById(fieldId);
+            const errorMsg = field.parentElement.querySelector('.error-message');
+            
+            field.classList.add('error');
+            errorMsg.textContent = message;
+            errorMsg.style.display = 'block';
+        }
+        
+        // Add input event listeners to clear errors on typing
+        document.querySelectorAll('input, select, textarea').forEach(field => {
+            field.addEventListener('input', function() {
+                if (this.classList.contains('error')) {
+                    this.classList.remove('error');
+                    this.parentElement.querySelector('.error-message').style.display = 'none';
+                }
+            });
+        });
+    </script>
 </body>
 </html>

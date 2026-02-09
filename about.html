@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - internIIT</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header-top {
+            background: #1a1a2e;
+            color: #fff;
+            padding: 10px 0;
+            font-size: 14px;
+        }
+
+        .header-top .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .contact-info {
+            display: flex;
+            gap: 30px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #ff6b6b;
+        }
+
+        /* Navigation */
+        nav {
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #ff6b6b;
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: #ff6b6b;
+        }
+
+        .cta-button {
+            background: #ff6b6b;
+            color: #fff;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .cta-button:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255,107,107,0.3);
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            padding: 60px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .breadcrumb::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: 50px 50px;
+        }
+
+        .breadcrumb .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            text-align: center;
+        }
+
+        .breadcrumb h1 {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .breadcrumb-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .breadcrumb-nav a {
+            color: #fff;
+            text-decoration: none;
+            opacity: 0.9;
+        }
+
+        .breadcrumb-nav a:hover {
+            opacity: 1;
+        }
+
+        /* About Section */
+        .about {
+            padding: 80px 20px;
+            background: #f8f9fa;
+        }
+
+        .about-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-main {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .about-text h3 {
+            font-size: 28px;
+            color: #1a1a2e;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .about-text h3::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: #ff6b6b;
+        }
+
+        .about-text p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .about-text ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .about-text ul li {
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+            color: #555;
+        }
+
+        .about-text ul li:last-child {
+            border-bottom: none;
+        }
+
+        .about-values {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .value-card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+        }
+
+        .value-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .value-card h4 {
+            font-size: 24px;
+            color: #ff6b6b;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .value-card p {
+            color: #666;
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .offerings-section {
+            max-width: 1200px;
+            margin: 0 auto 60px;
+        }
+
+        .offerings-section h3 {
+            font-size: 32px;
+            color: #1a1a2e;
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .offerings-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: #ff6b6b;
+        }
+
+        .offerings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .offering-card {
+            background: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+        }
+
+        .offering-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .offering-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 36px;
+        }
+
+        .offering-card h4 {
+            font-size: 24px;
+            color: #1a1a2e;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .offering-card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .offering-card ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+
+        .offering-card ul li {
+            padding: 8px 0;
+            color: #555;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .offering-card ul li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .outcome {
+            background: #f0f8ff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            color: #667eea;
+            font-weight: 500;
+        }
+
+        .success-stories {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .success-stories h3 {
+            font-size: 32px;
+            color: #1a1a2e;
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .success-stories h3::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: #ff6b6b;
+        }
+
+        .testimonials {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
+        }
+
+        .testimonial {
+            background: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            position: relative;
+        }
+
+        .testimonial::before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 60px;
+            color: #ff6b6b;
+            opacity: 0.3;
+            font-family: serif;
+        }
+
+        .testimonial p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-style: italic;
+            padding-left: 20px;
+        }
+
+        .testimonial-author {
+            text-align: right;
+            color: #1a1a2e;
+        }
+
+        .testimonial-author strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .testimonial-author span {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Footer */
+        footer {
+            background: #1a1a2e;
+            color: #fff;
+            padding: 60px 20px 20px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 20px;
+            color: #ff6b6b;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #fff;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            color: #999;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .about-main {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .about-values {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .offerings-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonials {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .breadcrumb h1 {
+                font-size: 32px;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .about-values {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Top -->
+    <div class="header-top">
+        <div class="container">
+            <div class="contact-info">
+                <span>📍 Mumbai, Maharashtra</span>
+                <span>✉️ support@interniit.com</span>
+            </div>
+            <div class="social-links">
+                <span>Follow Us:</span>
+                <a href="#">Twitter</a>
+                <a href="#">Instagram</a>
+                <a href="#">LinkedIn</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="index.html" class="logo">internIIT</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="domain.html">Courses</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+            </ul>
+            <a href="enroll.html" class="cta-button">Enroll Now</a>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <h1>About Us</h1>
+            <div class="breadcrumb-nav">
+                <a href="index.html">Home</a>
+                <span>→</span>
+                <span>About</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section class="about">
+        <div class="about-content">
+            <div class="about-main">
+                <div class="about-text">
+                    <h3>Who We Are</h3>
+                    <p>InternIIT is a premier technology education platform dedicated to bridging the gap between academic learning and industry requirements. Founded by industry veterans and IIT alumni, we bring real-world expertise into the classroom, ensuring our students are job-ready from day one.</p>
+                    
+                    <h3>Our Mission</h3>
+                    <p>To democratize quality technology education and make cutting-edge skills accessible to every aspiring professional, regardless of their background. We believe in practical, hands-on learning that translates directly into career success.</p>
+                    
+                    <h3>What Makes Us Different</h3>
+                    <ul>
+                        <li><strong>Industry-Driven Curriculum:</strong> Courses designed in collaboration with leading tech companies</li>
+                        <li><strong>Live Interactive Sessions:</strong> Real-time learning with industry experts</li>
+                        <li><strong>Project-Based Learning:</strong> Build a portfolio of real-world projects</li>
+                        <li><strong>Career Support:</strong> Placement assistance and interview preparation</li>
+                        <li><strong>Lifetime Access:</strong> Course materials and community access forever</li>
+                    </ul>
+                </div>
+                
+                <div class="about-values">
+                    <div class="value-card">
+                        <h4>Excellence</h4>
+                        <p>Committed to delivering the highest quality education and training</p>
+                    </div>
+                    <div class="value-card">
+                        <h4>Innovation</h4>
+                        <p>Embracing cutting-edge technologies and teaching methodologies</p>
+                    </div>
+                    <div class="value-card">
+                        <h4>Integrity</h4>
+                        <p>Built on trust, transparency, and ethical practices</p>
+                    </div>
+                    <div class="value-card">
+                        <h4>Growth</h4>
+                        <p>Fostering continuous learning and professional development</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="offerings-section">
+            <h3>Our Course Offerings</h3>
+            <div class="offerings-grid">
+                <div class="offering-card">
+                    <div class="offering-icon">🤖</div>
+                    <h4>AI & Data Science</h4>
+                    <p>Master machine learning, deep learning, and data analytics with Python. Work on real datasets and build predictive models.</p>
+                    <ul>
+                        <li>Machine Learning Fundamentals</li>
+                        <li>Deep Learning & Neural Networks</li>
+                        <li>Data Visualization & Analysis</li>
+                        <li>Real-world Industry Projects</li>
+                    </ul>
+                    <div class="outcome">
+                        <strong>Outcome:</strong> Data Scientist, ML Engineer, AI Researcher
+                    </div>
+                </div>
+                
+                <div class="offering-card">
+                    <div class="offering-icon">⚙️</div>
+                    <h4>Automation & Testing</h4>
+                    <p>Learn test automation, CI/CD pipelines, and quality assurance practices that modern DevOps teams require.</p>
+                    <ul>
+                        <li>Selenium & Appium Testing</li>
+                        <li>CI/CD Pipeline Design</li>
+                        <li>Performance Testing</li>
+                        <li>Agile Testing Practices</li>
+                    </ul>
+                    <div class="outcome">
+                        <strong>Outcome:</strong> Automation Engineer, QA Lead, DevOps Engineer
+                    </div>
+                </div>
+                
+                <div class="offering-card">
+                    <div class="offering-icon">💻</div>
+                    <h4>Software Engineering</h4>
+                    <p>Build robust, scalable software applications using modern development practices and cutting-edge technologies.</p>
+                    <ul>
+                        <li>Full-Stack Development</li>
+                        <li>Cloud Architecture</li>
+                        <li>System Design & Architecture</li>
+                        <li>Code Quality & Best Practices</li>
+                    </ul>
+                    <div class="outcome">
+                        <strong>Outcome:</strong> Software Engineer, Full-Stack Developer, System Architect
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="success-stories">
+            <h3>Inspirational Journey</h3>
+            <div class="testimonials">
+                <div class="testimonial">
+                    <p>"The practical approach and real projects helped me land my dream job at a leading tech company. The curriculum is exactly what the industry needs."</p>
+                    <div class="testimonial-author">
+                        <strong>Success Story</strong>
+                        <span>Data Science Graduate</span>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <p>"Coming from a non-tech background, I was worried about transitioning to software development. The structured learning path and mentorship made it possible."</p>
+                    <div class="testimonial-author">
+                        <strong>Success Story</strong>
+                        <span>Full-Stack Development Graduate</span>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <p>"The automation course transformed my career. I went from manual testing to leading automation projects at a Fortune 500 company."</p>
+                    <div class="testimonial-author">
+                        <strong>Success Story</strong>
+                        <span>Automation & Testing Graduate</span>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <p>"The lifetime access to course materials and the supportive community have been invaluable for my continuous professional growth."</p>
+                    <div class="testimonial-author">
+                        <strong>Success Story</strong>
+                        <span>Software Engineering Graduate</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>internIIT</h3>
+                <p>Empowering students through quality education and industry-focused training programs.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="domain.html">Courses</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Our Services</h3>
+                <ul>
+                    <li><a href="#">Live Training</a></li>
+                    <li><a href="#">Career Coaching</a></li>
+                    <li><a href="#">Placement Support</a></li>
+                    <li><a href="#">Certification</a></li>
+                    <li><a href="#">Workshops</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                    <li><a href="#">Refund Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; internIIT. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

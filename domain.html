@@ -568,7 +568,7 @@
             <div class="filter-section">
                 <h3>Language</h3>
                 <div class="filter-option">
-                    <input type="radio" name="language" id="lang-all" checked onchange="filterCourses()">
+                    <input type="radio" name="language" id="lang-all" value="all" checked onchange="filterCourses()">
                     <label for="lang-all">All Languages</label>
                 </div>
                 <div class="filter-option">
@@ -585,7 +585,7 @@
             <div class="filter-section">
                 <h3>Price</h3>
                 <div class="filter-option">
-                    <input type="radio" name="price" id="price-all" checked onchange="filterCourses()">
+                    <input type="radio" name="price" id="price-all" value="all" checked onchange="filterCourses()">
                     <label for="price-all">All Price</label>
                 </div>
                 <div class="filter-option">
@@ -602,7 +602,7 @@
             <div class="filter-section">
                 <h3>Skill Level</h3>
                 <div class="filter-option">
-                    <input type="radio" name="level" id="level-all" checked onchange="filterCourses()">
+                    <input type="radio" name="level" id="level-all" value="all" checked onchange="filterCourses()">
                     <label for="level-all">All Levels</label>
                 </div>
                 <div class="filter-option">
@@ -811,11 +811,11 @@
         }
 
         function filterCourses() {
-            const categoryCheckboxes = document.querySelectorAll('.category-filter:checked');
             const allCategoriesChecked = document.getElementById('cat-all').checked;
+            const categoryCheckboxes = document.querySelectorAll('.category-filter:checked');
             
             let selectedCategories = [];
-            if (!allCategoriesChecked && categoryCheckboxes.length > 0) {
+            if (!allCategoriesChecked) {
                 selectedCategories = Array.from(categoryCheckboxes).map(cb => cb.value);
             }
 
@@ -829,7 +829,7 @@
                 let show = true;
 
                 // Category filter
-                if (selectedCategories.length > 0) {
+                if (!allCategoriesChecked && selectedCategories.length > 0) {
                     const courseCategory = course.getAttribute('data-category');
                     if (!selectedCategories.includes(courseCategory)) {
                         show = false;
@@ -871,16 +871,9 @@
             });
 
             // Update count and show/hide no results
-            // document.getElementById('course-count').textContent = visibleCount; // Removed count
+            document.querySelector('.course-count').textContent = `${visibleCount} Courses found`;
             document.getElementById('no-results').style.display = visibleCount === 0 ? 'block' : 'none';
             document.getElementById('courses-grid').style.display = visibleCount === 0 ? 'none' : 'grid';
-
-            // Uncheck "All Courses" if individual categories are selected
-            if (categoryCheckboxes.length > 0) {
-                document.getElementById('cat-all').checked = false;
-            } else if (!allCategoriesChecked) {
-                document.getElementById('cat-all').checked = true;
-            }
         }
 
         function sortCourses(sortBy) {
@@ -920,9 +913,20 @@
             }
         });
 
+        // Handle individual category checkboxes
+        document.querySelectorAll('.category-filter').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                if (this.checked) {
+                    document.getElementById('cat-all').checked = false;
+                }
+                filterCourses();
+            });
+        });
+
         // Initialize on page load
         window.addEventListener('DOMContentLoaded', () => {
             initCourses();
+            filterCourses(); // Initialize filter to show correct count
         });
     </script>
 </body>
